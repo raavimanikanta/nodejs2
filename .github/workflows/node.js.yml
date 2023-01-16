@@ -1,32 +1,23 @@
-name: Workflow-Example
-
-# Run this workflow every time a new commit pushed to your repository
-on: push
-
+name: Release
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
 jobs:
-  # Set the job key. The key is displayed as the job name
-  # when a job name is not provided
-  workflow-example:
-    # Name the Job
-    name: Workflow Example
-    # Set the type of machine to run on
+  newrelic:
     runs-on: ubuntu-latest
-
     steps:
-      # Checks out a copy of your repository on the ubuntu-latest machine
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      # Print Hello World! Inside runner terminal
-      - name: Print Hello World
-        run: echo Hello World!
-        
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v2.1.5
+      - name: Create New Relic deployment marker
+        uses: newrelic/deployment-marker-action@v1
         with:
-          node-version: 14.x
-          
-      - name: Install Dependencies
-        run: npm ci
-        
-      
+          accountId: ${{ secrets.NEW_RELIC_ACCOUNT_ID }}
+          apiKey: ${{ secrets.NEW_RELIC_API_KEY }}
+          applicationId: ${{ secrets.NEW_RELIC_APPLICATION_ID }}
+          revision: "${{ github.ref }}-${{ github.sha }}"
+
+          # Optional
+          changelog: "See https://github.com/${{ github.repository }}/blob/master/CHANGELOG.md for details"
+          description: "Automated Deployment via Github Actions"
+          region: ${{ secrets.NEW_RELIC_REGION }}
+          user: "${{ github.actor }}"
