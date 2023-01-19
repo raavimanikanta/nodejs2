@@ -16,8 +16,4 @@ jobs:
           applicationId: ${{ secrets.NEW_RELIC_APPLICATION_ID }}
           revision: "${{ github.ref }}-${{ github.sha }}"
 
-          # Optional
-          changelog: "See https://github.com/${{ github.repository }}/blob/master/CHANGELOG.md for details"
-          description: "Automated Deployment via Github Actions"
-          region: ${{ secrets.NEW_RELIC_REGION }}
-          user: "${{ github.actor }}"
+         
