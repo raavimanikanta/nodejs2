@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 jobs:
   newrelic:
-  runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Create New Relic deployment marker
         uses: newrelic/deployment-marker-action@v1
