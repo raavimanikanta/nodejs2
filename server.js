@@ -1,3 +1,5 @@
+require("newrelic");
+
 // console.log("hello")
 
 //create server
