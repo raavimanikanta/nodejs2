@@ -1,21 +1,10 @@
-name: Node.js CI
-
-on: repository_dispatch
+name: Triggered workflow
+on:
+  repository_dispatch:
+    types: [trigger-another-repo]
 jobs:
-  build:
-
+  my-job:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [16.x]
-
     steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-#       - run: npm ci
-#       - run: npm run build --if-present
-#       - run: npm test
+      - name: Run some command
+        run: echo "Hello, World!"
