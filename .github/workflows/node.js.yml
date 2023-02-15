@@ -1,4 +1,4 @@
-name: Node.js CI
+name: Node.js repo_dispatch
 
 on: repository_dispatch
 jobs:
