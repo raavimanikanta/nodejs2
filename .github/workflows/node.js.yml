@@ -1,16 +1,22 @@
-name: Release
-on:
-  workflow_dispatch:
+name: Node.js CI
+
+on: repository_dispatch
 jobs:
-  newrelic:
+  build:
+
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [ 16.x]
+
     steps:
-      - name: Create New Relic deployment marker
-        uses: newrelic/deployment-marker-action@v1
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
         with:
-          accountId: ${{ secrets.NEW_RELIC_ACCOUNT_ID }}
-          apiKey: ${{ secrets.NEW_RELIC_API_KEY }}
-          applicationId: ${{ secrets.NEW_RELIC_APPLICATION_ID }}
-          revision: "${{ github.ref }}-${{ github.sha }}"
+          node-version: ${{ matrix.node-version }}
+      - run: npm i
+      - run: npm start
 
          
